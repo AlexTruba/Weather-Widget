@@ -1,0 +1,151 @@
+﻿@model RootObject
+@using Weather_Widget.Models
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "About";
+}
+@*Translate name of day to Ukrain*@e
+@helper Day(int time){
+var a = new DateTime(1970, 01, 01).AddSeconds(time).DayOfWeek;
+switch (a)
+{
+    case DayOfWeek.Monday: <span>Понеділок</span> break;
+    case DayOfWeek.Tuesday:<span>Вівторок</span> break;
+    case DayOfWeek.Wednesday:<span>Середа</span> break;
+    case DayOfWeek.Thursday:<span>Четверг</span> break;
+    case DayOfWeek.Friday: <span>Пятниця</span> break;
+    case DayOfWeek.Saturday:<span>Субота</span> break;
+    case DayOfWeek.Sunday:<span>Неділя</span> break;
+}
+}
+@*Translate description for weather state to Ukraine*@
+@helper WeatherDescripton(string name)
+{
+    switch (name.ToLower())
+    {
+        case "clear":<div>Сонячно</div>break;
+        case "few clouds":<div>Невелика хмарність</div>break;
+        case "scattered clouds":<div>Розірвані хмари</div>break;
+        case "broken clouds":<div>Розбиті хмари</div>break;
+        case "shower rain": <div>Сильний дощ</div>break;
+        case "rain":<div>Дощ</div>break;
+        case "thunderstorm":<div>Гроза</div>break;
+        case "snow":<div>Сніг</div>break;
+        case "mist":<div>Туман</div>break;
+    }
+}
+<script>
+    var text = '@(Json.Encode(Model.list))'.replace(/&quot;/g, '"');
+    var data = JSON.parse(text);
+</script>
+<div class="wrapper">
+    <div class="container no-pad">
+        <div class="row">
+            <div class="col-md-12">
+                @if (Model != null)
+                {
+                    if (!ViewBag.IsError)
+                    {
+                        <h2>Погода у місті @ViewBag.City</h2>
+                        <div class="all-days">
+                            @foreach (var item in Model.list)
+                            {
+                            <div class="daily-weather">
+                                <div class="col-md-6">
+
+                                    <div class="info-block">
+                                        <h4>Місцевий прогноз погоди</h4>
+                                        <div class="col-md-12"><div class="text-main datetime">@Day(item.dt) @(new DateTime(1970, 01, 01).AddSeconds(item.dt).ToShortDateString())</div></div>
+                                        <div class="col-md-6 align-center wrap-image">
+                                            <img src="@String.Format("/Images/{0}.svg", @item.weather.First().icon)" alt="Alternate Text" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="text-main">@WeatherDescripton(item.weather.First().main)</div>
+                                            <div class="temp-block">
+                                                <div class="temp">@Math.Round(item.temp.day,1) °C</div>
+                                                <div class="temp">@Math.Round(((item.temp.day * 9 / 5) + 32),1)  °F</div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-block">
+                                        <h4>Детальніше</h4>
+                                        <table>
+                                            <tr>
+                                                <td>Тиск</td>
+                                                <td>@Math.Round(item.pressure,0)</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Вологість</td>
+                                                <td>@item.humidity %</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Швидкість вітру</td>
+                                                <td>@item.speed м/с</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Хмарність</td>
+                                                <td>@item.clouds %</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <div class="diagram">
+                                    <canvas id="chart" width="800" height="400"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="week">
+                            @foreach (var item in Model.list)
+                            {
+                                <div class="col-md-2 day-js">
+                                    <div class="daily-report info-block">
+                                        <h4>@Day(item.dt)</h4>
+                                        <div class="col-md-12">
+                                            <div class="date">
+                                                @(new DateTime(1970, 01, 01).AddSeconds(item.dt).ToShortDateString())</div>
+                                        </div>
+                                        <div class="col-md-12 align-center wrap-image">
+                                            <img src="@String.Format("/Images/{0}.svg", @item.weather.First().icon)" alt="Alternate Text" />
+                                        </div>
+                                        <div class="col-md-12">
+                                            
+                                            <div class="temp">@Math.Round(item.temp.day, 1) °C</div>
+                                            <div class="temp">@Math.Round(((item.temp.day * 9 / 5) + 32))  °F</div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        </div>
+                                </div>
+                                
+                            }
+                           
+                        </div>
+
+                    }
+                    else { 
+                         <h2>Виникла непердбачена помилка при зверненні до сервісу погоди
+                         <br> Перезавантажте сторінку!
+                        </h2> 
+                    }
+                }
+                else
+                {
+                    <h2>Данне місто не знайдено!<br> Спробуйте знайти інше місто</h2>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="align-center back">
+        @Html.ActionLink("Повернутися на головну", "Index", "Home", new { @class = "hover-effect" })
+    </div>
+    
+</div>

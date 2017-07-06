@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Weather Page";
+}
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Виберіть місто</h3>
+                <ul class="city-list">
+                    <li>
+                        @Html.ActionLink("Київ", "Detail", "Home", new { cityName = "Київ" }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Львів", "Detail", "Home", new { cityName = "Львів" }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Харьків", "Detail", "Home", new { cityName = "Харьків" }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Дніпропетровськ", "Detail", "Home", new { cityName = "Дніпропетровськ" }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Одеса", "Detail", "Home", new { cityName = "Одеса" }, null)
+                    </li>
+                </ul>
+                <h3>або скористайтесь пошуком</h3>
+                @using (@Html.BeginForm("Detail", "Home", FormMethod.Get, new { id = "weather-form" }))
+            {
+                    <input type="text" placeholder="Введіть назву міста" name="cityName" required>
+                    <div class="hover-effect">
+                        <input type="submit" value="Знайти">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
