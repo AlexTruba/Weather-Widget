@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
     $(".week .day-js").first().addClass("hide");
     $(".all-days .daily-weather").first().addClass("active");
-    if (document.getElementById("chart") != null) 
-    {
-        DrawDiagram(0);
-    }
+
+    if (document.getElementById("chart") !== null) DrawDiagram(0);
+
     $(".week .day-js").click(function () {
         $(this).parent().find(".hide").removeClass("hide");
         $(this).addClass("hide");
@@ -13,7 +12,6 @@
         $(".all-days .daily-weather").eq(index).addClass("active");
         DrawDiagram(parseInt(index));
     });
-    
 });
 
 function DrawDiagram(index) {

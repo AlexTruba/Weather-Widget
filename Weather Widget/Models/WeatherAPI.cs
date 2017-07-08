@@ -8,18 +8,25 @@ using System.Threading.Tasks;
 
 namespace Weather_Widget.Models
 {
-    public static class WeatherAPI
+    public class WeatherAPI: IWeather
     {
-        private static readonly string _key = "039d992b6267c9d758a6ded74467c1c9";
-        public static bool IsError { get; set; }
-        public static async Task<RootObject> GetInfo(string cityName)
+        public string ApiKey { get; set; } 
+        public string BaseUrl { get; private set; }
+        public bool IsError { get; set; }
+        public WeatherAPI()
+        {
+            ApiKey = System.Configuration.ConfigurationManager.AppSettings["ApiKey"];
+            BaseUrl = System.Configuration.ConfigurationManager.AppSettings["BaseUrl"];
+        }
+        public async Task<RootObject> GetInfoAsync(string cityName)
         {
            RootObject rt = null;
            using (HttpClient client = new HttpClient())
            {
                 try
                 {
-                    var result = await client.GetAsync($"http://api.openweathermap.org/data/2.5/forecast/daily?q={cityName}&units=metric&APPID={_key}");
+                    client.BaseAddress = new Uri(BaseUrl);
+                    var result = await client.GetAsync($"?q={cityName}&units=metric&APPID={ApiKey}");
                     if (result.IsSuccessStatusCode)
                     {
                         IsError = false;

@@ -10,6 +10,12 @@ namespace Weather_Widget.Controllers
 {
     public class HomeController : Controller
     {
+        IWeather _weather;
+
+        public HomeController(IWeather weather)
+        {
+            _weather = weather;
+        }
         public ActionResult Index()
         {
             return View();
@@ -18,9 +24,9 @@ namespace Weather_Widget.Controllers
         [HttpGet]
         public async Task<ActionResult> Detail(string cityName)
         {
-            var rt =  await WeatherAPI.GetInfo(cityName);
+            var rt = await _weather.GetInfoAsync(cityName);
             @ViewBag.City = cityName;
-            ViewBag.IsError = WeatherAPI.IsError;
+            ViewBag.IsError = _weather.IsError;
             return View(rt);
         }
     }

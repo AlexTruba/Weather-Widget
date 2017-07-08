@@ -34,10 +34,14 @@ switch (a)
         case "mist":<div>Туман</div>break;
     }
 }
-<script>
-    var text = '@(Json.Encode(Model.list))'.replace(/&quot;/g, '"');
-    var data = JSON.parse(text);
-</script>
+
+@if (Model != null)
+{
+    <script>
+        var text = '@(Json.Encode(Model.list))'.replace(/&quot;/g, '"');
+        var data = JSON.parse(text);
+    </script>
+}
 <div class="wrapper">
     <div class="container no-pad">
         <div class="row">
@@ -46,6 +50,7 @@ switch (a)
                 {
                     if (!ViewBag.IsError)
                     {
+                        @*<h2>Погода у місті @ViewBag.City</h2>*@
                         <h2>Погода у місті @ViewBag.City</h2>
                         <div class="all-days">
                             @foreach (var item in Model.list)
