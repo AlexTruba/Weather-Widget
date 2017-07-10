@@ -12,6 +12,27 @@
         $(".all-days .daily-weather").eq(index).addClass("active");
         DrawDiagram(parseInt(index));
     });
+
+    $(".remove-log-js").click(function () {
+        let tr = $(this).parents("tr");
+
+        console.log(tr.attr("data-id"));
+        $.ajax({
+            type: "POST",
+            url: "/Home/RemoveOneLog",
+            data: { id: parseInt(tr.attr("data-id")) },
+            dataType: "json",
+            success: function (data) {
+                console.log($(".log-table tr").length);
+                if ($(".log-table tr").length == 2) {
+                    $(".log-table").parent().remove();
+                    $("h2.change").text("Історія запитів пуста!");
+                }
+                tr.remove();
+            }
+        });
+    });
+    
 });
 
 function DrawDiagram(index) {

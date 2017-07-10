@@ -18,6 +18,7 @@ namespace Weather_Widget.Models
             ApiKey = System.Configuration.ConfigurationManager.AppSettings["ApiKey"];
             BaseUrl = System.Configuration.ConfigurationManager.AppSettings["BaseUrl"];
         }
+
         public async Task<RootObject> GetInfoAsync(string cityName)
         {
            RootObject rt = null;
@@ -42,8 +43,6 @@ namespace Weather_Widget.Models
                 {
                     IsError = true;
                 }
-               
-                
             }
             return rt;
         }
