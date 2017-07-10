@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Weather_Widget.Models;
+using Weather_Widget.Models.Entities;
 
 namespace Weather_Widget.Infrastructure
 {
@@ -20,6 +21,7 @@ namespace Weather_Widget.Infrastructure
         private void AddBindings()
         {
             kernel.Bind<IWeather>().To<WeatherAPI>();
+            kernel.Bind<IRepository<Log>>().To<LogRepository>();
         }
 
         public object GetService(Type serviceType) => kernel.TryGet(serviceType);

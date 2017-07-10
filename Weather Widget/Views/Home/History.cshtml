@@ -1,0 +1,51 @@
+﻿@model Weather_Widget.Models.Entities.Log
+@{
+    ViewBag.Title = "History";
+}
+
+
+
+<div class="wrapper">
+    <div class="container no-pad">
+        <div class="col-md-12">
+            @if (Model != null && Model.WeatherInfo != null)
+            {
+                <h2 class="change">Історія запитів</h2>
+                <div class="table-wrap">
+                    <table class="log-table">
+                        <tr>
+                            <td>Місто</td>
+                            <td>Час</td>
+                            <td>Погода</td>
+                            <td></td>
+                        </tr>
+                        @foreach (var item in Model.WeatherInfo)
+                {
+                            <tr data-id="@item.Id">
+                                <td>@item.Town.Name</td>
+                                <td>@item.Time</td>
+                                <td>
+                                    <img src="@String.Format("/Images/{0}.svg",item.Weather )" alt="Alternate Text" />
+                                    <div>@item.Temp °C</div>
+                                </td>
+                                <td>
+                                    <a class="remove-log-js cross">
+                                        <div></div>
+                                        <div></div>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+            else
+            {
+                <h2>Історія запитів пуста!</h2>
+            }
+        </div>
+    </div>
+    <div class="align-center back">
+        @Html.ActionLink("Повернутися на головну", "Index", "Home", new { @class = "hover-effect" })
+    </div>
+</div>

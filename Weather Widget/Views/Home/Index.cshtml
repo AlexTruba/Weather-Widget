@@ -25,13 +25,16 @@
                 </ul>
                 <h3>або скористайтесь пошуком</h3>
                 @using (@Html.BeginForm("Detail", "Home", FormMethod.Get, new { id = "weather-form" }))
-            {
+                {
                     <input type="text" placeholder="Введіть назву міста" name="cityName" required>
                     <div class="hover-effect">
                         <input type="submit" value="Знайти">
                     </div>
                 }
             </div>
+        </div>
+        <div class="align-center history">
+            @Html.ActionLink("Історія пошуку", "History", "Home")
         </div>
     </div>
 </div>

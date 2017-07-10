@@ -229,3 +229,79 @@ ul.city-list li a:hover {
 .no-pad{
     padding:0px;
 }
+.wrapper .history a{
+    color:white;
+    font-size:18px;
+    border-bottom:1px solid white;
+    transition:all 0.3s;
+}
+.wrapper .history a:hover {
+    border-bottom: 1px solid transparent;
+    text-decoration:none;
+    transition:all 0.3s;
+}
+.wrapper .back{
+    margin-bottom:10px;
+}
+.table-wrap {
+    border: 1px solid white;
+    border-radius: 15px;
+}
+.log-table{
+    width:100%;
+}
+.log-table tr td {
+    text-align:center;
+   border-bottom:1px solid white;
+}
+.log-table tr:last-child td {
+   border-bottom:1px solid transparent;
+}
+.log-table tr:first-child td {
+    background-color:white;
+    color:black;
+    font-size:20px;
+    text-align:center;
+    font-weight:bold;
+}
+.log-table tr:first-child td:first-child {
+    background-color:white;
+    border-top-left-radius:10px;
+}
+.log-table tr:first-child td:last-child {
+    background-color:white;
+    border-top-right-radius:10px;
+}
+.log-table tr td{
+    color:white;
+    font-size:18px;
+    padding:15px 25px;
+}
+.cross {
+    display:inline-block;
+    cursor:pointer
+}
+.cross div {
+    position: relative;
+    width: 20px;
+    height: 5px;
+    background-color: white;
+    left:5px;
+    transition:all 0.5s;
+}
+.cross div:first-child{
+    transform:rotate(45deg);
+    top:5px;
+}
+.cross div:last-child {
+    transform: rotate(-45deg);
+}
+.cross:hover div{
+    background-color:red;
+}
+.cross:hover div:first-child {
+    transform: rotate(225deg)
+}
+.cross:hover div:last-child{
+    transform:rotate(135deg)
+}
