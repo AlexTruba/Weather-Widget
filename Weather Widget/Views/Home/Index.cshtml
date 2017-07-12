@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Weather_Widget.Models.Entities.ElectCity>
+@{
     ViewBag.Title = "Weather Page";
 }
 <div class="wrapper">
@@ -7,21 +8,33 @@
             <div class="col-md-12">
                 <h3>Виберіть місто</h3>
                 <ul class="city-list">
-                    <li>
-                        @Html.ActionLink("Київ", "Detail", "Home", new { cityName = "Київ" }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Львів", "Detail", "Home", new { cityName = "Львів" }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Харьків", "Detail", "Home", new { cityName = "Харьків" }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Дніпропетровськ", "Detail", "Home", new { cityName = "Дніпропетровськ" }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Одеса", "Detail", "Home", new { cityName = "Одеса" }, null)
-                    </li>
+                    @if (Model.Count() == 0)
+                    {
+                        <li>
+                            @Html.ActionLink("Київ", "Detail", "Home", new { cityName = "Київ" }, null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Львів", "Detail", "Home", new { cityName = "Львів" }, null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Харьків", "Detail", "Home", new { cityName = "Харьків" }, null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Дніпропетровськ", "Detail", "Home", new { cityName = "Дніпропетровськ" }, null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Одеса", "Detail", "Home", new { cityName = "Одеса" }, null)
+                        </li>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <li>
+                                @Html.ActionLink(item.Name, "Detail", "Home", new { cityName = "Київ" }, null)
+                            </li>
+                        }
+                    }
                 </ul>
                 <h3>або скористайтесь пошуком</h3>
                 @using (@Html.BeginForm("Detail", "Home", FormMethod.Get, new { id = "weather-form" }))
@@ -35,6 +48,7 @@
         </div>
         <div class="align-center history">
             @Html.ActionLink("Історія пошуку", "History", "Home")
+            @Html.ActionLink("Улюблені міста", "Index", "ElectCity")
         </div>
     </div>
 </div>

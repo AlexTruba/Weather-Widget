@@ -194,7 +194,6 @@ ul.city-list li a:hover {
 .all-days .daily-weather{
     display:none;
 }
-
 .back a.hover-effect{
     background: transparent;
     color: white;
@@ -230,6 +229,8 @@ ul.city-list li a:hover {
     padding:0px;
 }
 .wrapper .history a{
+    display:inline-block;
+    margin:0 20px;
     color:white;
     font-size:18px;
     border-bottom:1px solid white;
@@ -304,4 +305,35 @@ ul.city-list li a:hover {
 }
 .cross:hover div:last-child{
     transform:rotate(135deg)
+}
+.plus {
+    position:relative;
+    top:-3px;
+    display: inline-block;
+    cursor: pointer;
+}
+.plus:hover div{
+    background-color: forestgreen;
+}
+.plus div {
+    position: relative;
+    width: 20px;
+    height: 5px;
+    background-color: white;
+    transition: all 0.2s;
+    border-radius: 5px;
+}
+.plus div:first-child{
+    transform:rotate(90deg);
+    top:5px;
+}
+.elect__table{
+    width:60%;
+    margin:0 auto;
+}
+.elect__table input{
+    padding:10px 20px;
+    border:none;
+    outline:none;
+    border-radius:5px;
 }

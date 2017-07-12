@@ -26,7 +26,7 @@
                                 <td>@item.Time</td>
                                 <td>
                                     <img src="@String.Format("/Images/{0}.svg",item.Weather )" alt="Alternate Text" />
-                                    <div>@item.Temp °C</div>
+                                    <div>@Math.Round(item.Temp,1) °C</div>
                                 </td>
                                 <td>
                                     <a class="remove-log-js cross">

@@ -6,9 +6,12 @@ namespace Weather_Widget.Models
 {
     public class LogRepository : IRepository<Log>
     {
-        private LogContext _context = new LogContext();
+        private LogContext _context;
         public IQueryable<Log> Data => _context.Log;
-
+        public LogRepository(LogContext lg)
+        {
+            _context = lg;
+        }
         public void Add(Log entry)
         {
             try
@@ -22,9 +25,10 @@ namespace Weather_Widget.Models
         
         public void Edit(Log entry)
         {
-            if (Data.FirstOrDefault(t => t.Id == entry.Id) != null)
+            var log = Data.FirstOrDefault(t => t.Id == entry.Id);
+            if (log!= null)
             {
-                _context.Entry(entry).State = System.Data.Entity.EntityState.Modified; ;
+                _context.Entry(entry).State = System.Data.Entity.EntityState.Modified;
                 _context.SaveChanges();
             }
         }
@@ -47,11 +51,6 @@ namespace Weather_Widget.Models
                 _context.SaveChanges();
             }
             catch { throw; }
-        }
-        public void Save() => _context.SaveChanges();
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

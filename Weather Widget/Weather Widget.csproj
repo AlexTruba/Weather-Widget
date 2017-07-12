@@ -160,18 +160,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ElectCityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\LogContext.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\DBHelper\LogChangeHelp.cs" />
+    <Compile Include="Models\Entities\ElectCity.cs" />
+    <Compile Include="Models\ElectCityRepository.cs" />
     <Compile Include="Models\IRepository.cs" />
     <Compile Include="Models\Entities\Log.cs" />
     <Compile Include="Models\LogRepository.cs" />
     <Compile Include="Models\Entities\Town.cs" />
     <Compile Include="Models\IWeather.cs" />
     <Compile Include="Models\RootObject.cs" />
+    <Compile Include="Models\UnitOfWork.cs" />
     <Compile Include="Models\WeatherAPI.cs" />
     <Compile Include="Models\Entities\WeatherInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -214,6 +219,7 @@
     <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\History.cshtml" />
+    <Content Include="Views\ElectCity\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -19,7 +19,7 @@ namespace Weather_Widget.Infrastructure
         {
           
             base.OnModelCreating(modelBuilder);
-
+            Database.SetInitializer<LogContext>(new DropCreateDatabaseIfModelChanges<LogContext>());
             //Remove Session from DB after 1 hour
             _removeSession.Interval = TimeSpan.FromHours(1).TotalMilliseconds;
             _removeSession.AutoReset = false;
@@ -36,5 +36,6 @@ namespace Weather_Widget.Infrastructure
         public DbSet<Log> Log { get; set; }
         public DbSet<WeatherInfo> WeatherInfo { get; set; }
         public DbSet<Town> Towns { get; set; }
+        public DbSet<ElectCity> ElectCities { get; set; }
     }
 }

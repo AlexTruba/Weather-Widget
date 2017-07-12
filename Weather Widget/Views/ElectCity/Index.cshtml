@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Weather_Widget.Models.Entities.ElectCity>
+
+@{
+    ViewBag.Title = "Elect";
+}
+
+<div class="wrapper">
+    <div class="container no-pad">
+        <div class="col-md-12">
+            <h2 class="change">Улюблені міста</h2>
+            
+                <div class="table-wrap elect__table">
+                    <table class="log-table">
+                        <tr>
+                            <td>Місто</td>
+                            <td></td>
+                        </tr>
+                        @if (Model != null)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr data-id="@item.Id">
+                                    <td><input type="text" name="name" value="@item.Name" /></td>
+                                    <td>
+                                        <a class="remove-city-js cross">
+                                            <div></div>
+                                            <div></div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td><input type="text" class="new-city" required name="name" placeholder="Назва міста" /></td>
+                            <td>
+                                <a class="add-city-js plus">
+                                    <div></div>
+                                    <div></div>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div class="align-center back">
+        @Html.ActionLink("Повернутися на головну", "Index","Home", null, new { @class = "hover-effect" })
+    </div>
+</div>

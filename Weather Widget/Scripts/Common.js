@@ -32,7 +32,62 @@
             }
         });
     });
-    
+
+    $(".elect__table input").not(".new-city").focusout(function () {
+        let name = $(this);
+        console.log(name.parents("tr").attr("data-id"));
+        console.log(name.val());
+        if (name.val().length!=0) {
+            $.ajax({
+                type: "POST",
+                url: "/ElectCity/EditElectTown",
+                data: { id: name.parents("tr").attr("data-id"), name: name.val() },
+                dataType: "json",
+                success: function (data) {
+                }
+            });
+        }
+    });
+    $(".elect__table .remove-city-js").click(function () {
+        let tr = $(this).parents("tr");
+        $.ajax({
+            type: "POST",
+            url: "/ElectCity/RemoveElectTown",
+            data: { id: tr.attr("data-id")},
+            dataType: "json",
+            success: function (data) {
+                tr.remove();
+            }
+        });
+    });
+
+    $(".elect__table .add-city-js").click(function () {
+        var name = $(".elect__table .new-city");
+        if (name.val().length != 0) {
+            $.ajax({
+                type: "POST",
+                url: "/ElectCity/AddElectTown",
+                data: { name: name.val() },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 200) {
+                        $(".elect__table tbody .new-city").prepend(`<tr data-id="` + data.Id +
+                            `">
+                            <td><input type="text" name="name" value="`+ name.val() +
+                            `"/></td>
+                            <td>
+                                <a class="add-log-js plus">
+                                    <div></div>
+                                    <div></div>
+                                </a>
+                            </td>
+                        </tr>`);
+                        name.val(" ");
+                    }
+                }
+            });
+        }
+    });
 });
 
 function DrawDiagram(index) {
