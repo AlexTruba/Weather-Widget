@@ -31,7 +31,7 @@
                         foreach (var item in Model)
                         {
                             <li>
-                                @Html.ActionLink(item.Name, "Detail", "Home", new { cityName = "Київ" }, null)
+                                @Html.ActionLink(item.Name, "Detail", "Home", new { cityName = @item.Name }, null)
                             </li>
                         }
                     }

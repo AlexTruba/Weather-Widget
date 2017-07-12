@@ -24,7 +24,7 @@
             dataType: "json",
             success: function (data) {
                 console.log($(".log-table tr").length);
-                if ($(".log-table tr").length == 2) {
+                if ($(".log-table tr").length === 2) {
                     $(".log-table").parent().remove();
                     $("h2.change").text("Історія запитів пуста!");
                 }
@@ -36,7 +36,7 @@
         let name = $(this);
         console.log(name.parents("tr").attr("data-id"));
         console.log(name.val());
-        if (name.val().length!=0) {
+        if (name.val().length!==0) {
             $.ajax({
                 type: "POST",
                 url: "/ElectCity/EditElectTown",
@@ -62,15 +62,16 @@
 
     $(".elect__table .add-city-js").click(function () {
         var name = $(".elect__table .new-city");
-        if (name.val().length != 0) {
+        if (name.val().length !== 0) {
             $.ajax({
                 type: "POST",
                 url: "/ElectCity/AddElectTown",
                 data: { name: name.val() },
                 dataType: "json",
                 success: function (data) {
-                    if (data.status == 200) {
-                        $(".elect__table tbody .new-city").prepend(`<tr data-id="` + data.Id +
+                    if (data.status === 200) {
+                        console.log(data);
+                        $(".elect__table tbody tr").last().before(`<tr data-id="` + data.id +
                             `">
                             <td><input type="text" name="name" value="`+ name.val() +
                             `"/></td>
@@ -81,7 +82,7 @@
                                 </a>
                             </td>
                         </tr>`);
-                        name.val(" ");
+                        name.val("");
                     }
                 }
             });

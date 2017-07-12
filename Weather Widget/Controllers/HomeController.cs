@@ -40,8 +40,12 @@ namespace Weather_Widget.Controllers
                 ControllerContext.HttpContext.Session["history"] = Guid.NewGuid().ToString("N");
             }
             var rt = await _weather.GetInfoAsync(cityName);
-            LogChangeHelp lh = new LogChangeHelp();
-            lh.ChangeDB(cityName, rt, (string)Session["history"], _uw.LogRepository);
+            if (!_weather.IsError)
+            {
+
+                LogChangeHelp lh = new LogChangeHelp();
+                lh.ChangeDB(cityName, rt, (string)Session["history"], _uw.LogRepository);
+            }
             ViewBag.City = cityName;
             ViewBag.IsError = _weather.IsError;
             return View(rt);
