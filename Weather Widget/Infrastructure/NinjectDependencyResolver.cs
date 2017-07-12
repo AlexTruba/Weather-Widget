@@ -21,6 +21,7 @@ namespace Weather_Widget.Infrastructure
         private void AddBindings()
         {
             kernel.Bind<IWeather>().To<WeatherAPI>();
+            kernel.Bind<IRepository<Log>>().To<LogRepository>();
         }
 
         public object GetService(Type serviceType) => kernel.TryGet(serviceType);

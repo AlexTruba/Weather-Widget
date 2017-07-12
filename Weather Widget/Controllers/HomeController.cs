@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Services;
+using Weather_Widget.Infrastructure;
 using Weather_Widget.Models;
 using Weather_Widget.Models.DBHelper;
 using Weather_Widget.Models.Entities;
@@ -21,7 +23,6 @@ namespace Weather_Widget.Controllers
 
         public ActionResult Index()
         {
-            
             return View(_uw.ElectCityRepository.Data.ToList());
         }
 

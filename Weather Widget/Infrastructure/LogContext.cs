@@ -13,8 +13,8 @@ namespace Weather_Widget.Infrastructure
     {
         private static Timer _removeSession = new Timer();
         public LogContext():base("History")
-        {
-        }
+        {}
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
           
@@ -30,9 +30,8 @@ namespace Weather_Widget.Infrastructure
                     if (item.SessionStart.AddHours(1) > DateTime.Now) Log.Remove(item);
                 }
             };
-
-
         }
+
         public DbSet<Log> Log { get; set; }
         public DbSet<WeatherInfo> WeatherInfo { get; set; }
         public DbSet<Town> Towns { get; set; }

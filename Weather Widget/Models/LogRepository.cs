@@ -12,6 +12,7 @@ namespace Weather_Widget.Models
         {
             _context = lg;
         }
+
         public void Add(Log entry)
         {
             try
