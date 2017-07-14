@@ -13,38 +13,38 @@ namespace Weather_Widget.Controllers
     public class HomeController : Controller
     {
         IWeather _weather;
-        UnitOfWork _uw;
+        IUnitOfWork _uw;
 
-        public HomeController(IWeather weather)
+        public HomeController(IUnitOfWork unit,IWeather weather)
         {
             _weather = weather;
-            _uw = new UnitOfWork();
+            _uw = unit;
         }
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
-            return View(_uw.ElectCityRepository.Data.ToList());
+            return View(_uw.Repository<ElectCity>().Data.ToList());
         }
 
         public ActionResult History()
         {
-            var a = _uw.LogRepository.Data.ToList();
-            return View(a.FirstOrDefault(t => t.Session == (string)Session["history"]));
+            var a = _uw.Repository<Log>().Data.ToList();
+            return View(a.FirstOrDefault(t => t.Session == (string)ControllerContext.HttpContext.Session["history"]));
         }
 
         [HttpGet]
-        public async Task<ActionResult> Detail(string cityName)
+        public async Task<ViewResult> Detail(string cityName)
         {
             if (ControllerContext.HttpContext.Session["history"] == null)
             {
                 ControllerContext.HttpContext.Session["history"] = Guid.NewGuid().ToString("N");
             }
             var rt = await _weather.GetInfoAsync(cityName);
+
             if (!_weather.IsError)
             {
-
                 LogChangeHelp lh = new LogChangeHelp();
-                lh.ChangeDB(cityName, rt, (string)Session["history"], _uw.LogRepository);
+                lh.ChangeDB(cityName, rt, (string)ControllerContext.HttpContext.Session["history"], _uw.Repository<Log>());
             }
             ViewBag.City = cityName;
             ViewBag.IsError = _weather.IsError;
@@ -54,7 +54,7 @@ namespace Weather_Widget.Controllers
         [HttpPost]
         public  ActionResult RemoveOneLog(int id)
         {
-            _uw.LogRepository.RemoveWeather(id);
+            _uw.Repository<WeatherInfo>().Remove(_uw.Repository<WeatherInfo>().Get(t=>t.Id==id));
             return Json(new {status = 200 });
         }
     }

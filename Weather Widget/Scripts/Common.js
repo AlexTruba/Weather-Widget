@@ -34,8 +34,6 @@
     });
     $(".elect__table input").not(".new-city").focusout(function () {
         let name = $(this);
-        console.log(name.parents("tr").attr("data-id"));
-        console.log(name.val());
         if (name.val().length!==0) {
             $.ajax({
                 type: "POST",
@@ -70,7 +68,6 @@
                 dataType: "json",
                 success: function (data) {
                     if (data.status === 200) {
-                        console.log(data);
                         $(".elect__table tbody tr").last().before(`<tr data-id="` + data.id +
                             `">
                             <td><input type="text" name="name" value="`+ name.val() +

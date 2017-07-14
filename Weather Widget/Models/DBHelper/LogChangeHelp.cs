@@ -8,7 +8,7 @@ namespace Weather_Widget.Models.DBHelper
 {
     public class LogChangeHelp
     {
-        public void ChangeDB(string cityName, RootObject rt, string session,LogRepository _log)
+        public void ChangeDB(string cityName, RootObject rt, string session,IRepository<Log> log)
         {
             Log currLog = new Log();
             var newCity = new Town()
@@ -23,17 +23,17 @@ namespace Weather_Widget.Models.DBHelper
                 Weather = rt.list.First().weather.First().icon,
                 Town = newCity
             };
-            if (_log.Data.FirstOrDefault(t => t.Session == session) == null)
+            if (log.Data.FirstOrDefault(t => t.Session == session) == null)
             {
                 currLog.Session = session;
                 currLog.WeatherInfo.Add(weather);
-                _log.Add(currLog);
+                log.Add(currLog);
             }
             else
             {
-                currLog = _log.Data.First(t => t.Session == session);
+                currLog = log.Data.First(t => t.Session == session);
                 currLog.WeatherInfo.Add(weather);
-                _log.Edit(currLog);
+                log.Edit(currLog);
             }
         }
     }

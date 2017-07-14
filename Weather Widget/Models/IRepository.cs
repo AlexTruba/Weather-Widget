@@ -11,6 +11,7 @@ namespace Weather_Widget.Models
         IQueryable<T> Data { get; }
         void Add(T entry);
         void Edit(T entry);
-        void Remove(int id);
+        void Remove(T entry);
+        T Get(Func<T, bool> predicate);
     }
 }

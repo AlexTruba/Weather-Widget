@@ -11,7 +11,7 @@ namespace Weather_Widget.Models
     public class WeatherAPI: IWeather
     {
         public string ApiKey { get; set; } 
-        public string BaseUrl { get; private set; }
+        public string BaseUrl { get; set; }
         public bool IsError { get; set; }
         public WeatherAPI()
         {

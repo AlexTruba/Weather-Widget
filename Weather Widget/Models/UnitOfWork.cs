@@ -6,46 +6,16 @@ using Weather_Widget.Infrastructure;
 
 namespace Weather_Widget.Models
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private bool disposed = false;
-        private LogContext db = new LogContext();
-        private LogRepository _log;
-        private ElectCityRepository _elect;
+        private readonly LogContext _context = new LogContext();
 
-        public LogRepository LogRepository
+        public IRepository<T> Repository<T>() where T : class
         {
-            get
-            {
-                if (_log == null) _log = new LogRepository(db);
-                return _log;
-            }
+            return new Repository<T>(_context);
         }
 
-        public ElectCityRepository ElectCityRepository
-        {
-            get
-            {
-                if (_elect == null) _elect = new ElectCityRepository(db);
-                return _elect;
-            }
-        }
-
-        public void Save() => db.SaveChanges();
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing) db.Dispose();
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        public void Save() => _context.SaveChanges();
+        public void Dispose() => _context.Dispose();
     }
 }

@@ -12,6 +12,7 @@ namespace Weather_Widget.Infrastructure
     public class NinjectDependencyResolver : IDependencyResolver
     {
         private IKernel kernel;
+
         public NinjectDependencyResolver(IKernel kernel)
         {
             this.kernel = kernel;
@@ -21,7 +22,7 @@ namespace Weather_Widget.Infrastructure
         private void AddBindings()
         {
             kernel.Bind<IWeather>().To<WeatherAPI>();
-            kernel.Bind<IRepository<Log>>().To<LogRepository>();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
 
         public object GetService(Type serviceType) => kernel.TryGet(serviceType);

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weather Widget", "Weather Widget\Weather Widget.csproj", "{BD63E6E7-B292-40EE-94BA-82B5E5E0FBB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherWidget.Tests", "WeatherWidget.Tests\WeatherWidget.Tests.csproj", "{3DD55BF2-8BB6-4CD9-B110-F915ED076CF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BD63E6E7-B292-40EE-94BA-82B5E5E0FBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD63E6E7-B292-40EE-94BA-82B5E5E0FBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD63E6E7-B292-40EE-94BA-82B5E5E0FBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DD55BF2-8BB6-4CD9-B110-F915ED076CF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DD55BF2-8BB6-4CD9-B110-F915ED076CF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DD55BF2-8BB6-4CD9-B110-F915ED076CF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DD55BF2-8BB6-4CD9-B110-F915ED076CF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
