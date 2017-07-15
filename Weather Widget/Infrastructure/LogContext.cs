@@ -30,6 +30,7 @@ namespace Weather_Widget.Infrastructure
                     if (item.SessionStart.AddHours(1) > DateTime.Now) Log.Remove(item);
                 }
             };
+            _removeSession.Start();
         }
 
         public DbSet<Log> Log { get; set; }
