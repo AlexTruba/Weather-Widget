@@ -24,6 +24,7 @@ switch (a)
     switch (name.ToLower())
     {
         case "clear":<div>Сонячно</div>break;
+        case "clouds":<div>Хмарно</div>break;
         case "few clouds":<div>Невелика хмарність</div>break;
         case "scattered clouds":<div>Розірвані хмари</div>break;
         case "broken clouds":<div>Розбиті хмари</div>break;
@@ -56,15 +57,14 @@ switch (a)
                             @foreach (var item in Model.list)
                             {
                             <div class="daily-weather">
-                                <div class="col-md-6">
-
+                                <div class="col-md-6 col-sm-6">
                                     <div class="info-block">
                                         <h4>Місцевий прогноз погоди</h4>
                                         <div class="col-md-12"><div class="text-main datetime">@Day(item.dt) @(new DateTime(1970, 01, 01).AddSeconds(item.dt).ToShortDateString())</div></div>
-                                        <div class="col-md-6 align-center wrap-image">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 align-center wrap-image">
                                             <img src="@String.Format("/Images/{0}.svg", @item.weather.First().icon)" alt="Alternate Text" />
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
                                             <div class="text-main">@WeatherDescripton(item.weather.First().main)</div>
                                             <div class="temp-block">
                                                 <div class="temp">@Math.Round(item.temp.day,1) °C</div>
@@ -75,7 +75,7 @@ switch (a)
                                     </div>
 
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 col-sm-6">
                                     <div class="info-block">
                                         <h4>Детальніше</h4>
                                         <table>
@@ -111,17 +111,17 @@ switch (a)
                         <div class="week">
                             @foreach (var item in Model.list)
                             {
-                                <div class="col-md-2 day-js">
+                                <div class="col-md-2 col-sm-4 day-js">
                                     <div class="daily-report info-block">
                                         <h4>@Day(item.dt)</h4>
                                         <div class="col-md-12">
                                             <div class="date">
                                                 @(new DateTime(1970, 01, 01).AddSeconds(item.dt).ToShortDateString())</div>
                                         </div>
-                                        <div class="col-md-12 align-center wrap-image">
+                                        <div class="col-md-12 col-xs-6 align-center wrap-image">
                                             <img src="@String.Format("/Images/{0}.svg", @item.weather.First().icon)" alt="Alternate Text" />
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 col-xs-6">
                                             
                                             <div class="temp">@Math.Round(item.temp.day, 1) °C</div>
                                             <div class="temp">@Math.Round(((item.temp.day * 9 / 5) + 32))  °F</div>
@@ -152,9 +152,4 @@ switch (a)
     <div class="align-center back">
         @Html.ActionLink("Повернутися на головну", "Index", "Home", new { @class = "hover-effect" })
     </div>
-    <div class="align-center history">
-        @Html.ActionLink("Історія пошуку", "History", "Home")
-        @Html.ActionLink("Улюблені міста", "Index", "ElectCity")
-    </div>
-    
 </div>

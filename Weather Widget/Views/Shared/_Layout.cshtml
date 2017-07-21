@@ -5,16 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="~/Images/weather.ico">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-   
-    <section class="body-content">
+   <header>
+       <div class="header__logo">
+           <a href="@Url.Action("Index","Home")">
+            <img src="/Images/weather.ico" alt="Alternate Text" />
+           </a>
+       </div>
+       <ul class="header__menu">
+           <li>@Html.ActionLink("Історія пошуку", "History", "Home")</li>
+           <li>@Html.ActionLink("Улюблені міста", "Index", "ElectCity")</li>
+       </ul>
+       <div class="mobile__bar">
+           <div></div>
+           <div></div>
+           <div></div>
+       </div>
+   </header>
+    <main class="body-content">
         @RenderBody()
-    </section>
-
+    </main>
+    <footer>
+        <div class="footer__company">
+            <div class="text">Weather Widget - веб-сайт для зручного пошуку <br> інформації про погоду у вибраному місті</div>
+            <div class="copyright">© 2017 My small company</div>
+        </div>
+        <div class="footer__contact">
+            <a class="phone" href="tel:+380665055050">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>+38 (066) 505 50 50</span>
+            </a> 
+            <a class="email" href="mailto:straber@ukr.net">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <span>straber@ukr.net</span>
+            </a>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/Common.js")

@@ -3,7 +3,11 @@
     $(".all-days .daily-weather").first().addClass("active");
 
     if (document.getElementById("chart") !== null) DrawDiagram(0);
-
+    
+    $(".mobile__bar").click(function () {
+        $(this).toggleClass("active");
+        $(".header__menu").slideToggle(300);
+    });
     $(".week .day-js").click(function () {
         $(this).parent().find(".hide").removeClass("hide");
         $(this).addClass("hide");
