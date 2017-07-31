@@ -5,13 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
-using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using Weather_Widget.Models;
 using Weather_Widget.Models.Entities;
+using System.Web.Http.Cors;
 
 namespace Weather_Widget.Controllers.Api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ElectCityApiController : ApiController
     {
         readonly IUnitOfWork _unit = new UnitOfWork();

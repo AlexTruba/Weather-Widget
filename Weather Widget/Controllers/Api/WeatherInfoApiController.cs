@@ -5,10 +5,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Weather_Widget.Models;
 
 namespace Weather_Widget.Controllers.Api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class WeatherInfoApiController : ApiController
     {
         // GET: api/ElectCities/5

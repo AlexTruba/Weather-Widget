@@ -5,9 +5,11 @@ using System.Web.Http;
 using Newtonsoft.Json;
 using Weather_Widget.Models;
 using Weather_Widget.Models.Entities;
+using System.Web.Http.Cors;
 
 namespace Weather_Widget.Controllers.Api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class HistoryApiController : ApiController
     {
         readonly IUnitOfWork _unit = new UnitOfWork();
