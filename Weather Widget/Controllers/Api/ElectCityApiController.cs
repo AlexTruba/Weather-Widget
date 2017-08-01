@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Weather_Widget.Models;
 using Weather_Widget.Models.Entities;
 using System.Web.Http.Cors;
+using System.Threading.Tasks;
 
 namespace Weather_Widget.Controllers.Api
 {
@@ -19,76 +20,90 @@ namespace Weather_Widget.Controllers.Api
 
         // GET: api/ElectCities
         [HttpGet]
-        public IEnumerable<ElectCity> Get()
+        public async Task<IEnumerable<ElectCity>> Get()
         {
-            return _unit.Repository<ElectCity>().Data.ToList();
+            return await Task.Run(() => {
+                return _unit.Repository<ElectCity>().Data.ToList();
+            });
         }
         
         // GET: api/ElectCities/5
         [HttpGet]
-        public HttpResponseMessage GetItem(int id)
+        public async Task<HttpResponseMessage> GetItem(int id)
         {
-            HttpResponseMessage response;
-            var city = _unit.Repository<ElectCity>().Get(t => t.Id == id);
-            if (city == null)
-            {
-                response = this.Request.CreateResponse(HttpStatusCode.NotFound);
-                return response;
-            }
-            response = this.Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(JsonConvert.SerializeObject(city), Encoding.UTF8,"application/json");
+            return await Task.Run(() => {
+                HttpResponseMessage response;
+                var city = _unit.Repository<ElectCity>().Get(t => t.Id == id);
+                if (city == null)
+                {
+                    response = this.Request.CreateResponse(HttpStatusCode.NotFound);
+                    return response;
+                }
+                response = this.Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(JsonConvert.SerializeObject(city), Encoding.UTF8, "application/json");
 
-            return response;
+                return response;
+            });
+           
         }
 
         // POST: api/ElectCities
         [HttpPost]
-        public HttpResponseMessage Additem([FromBody]ElectCity town)
+        public async Task<HttpResponseMessage> Additem([FromBody]ElectCity town)
         {
-            if (!String.IsNullOrEmpty(town.Name))
+            return await Task.Run(() =>
             {
-                var electRepo = _unit.Repository<ElectCity>();
-                if (electRepo.Get(t => t.Name.Equals(town.Name, StringComparison.OrdinalIgnoreCase)) == null )
+                if (!String.IsNullOrEmpty(town.Name))
                 {
-                    electRepo.Add(new ElectCity() { Name = town.Name });
-                    return this.Request.CreateResponse(HttpStatusCode.OK);
+                    var electRepo = _unit.Repository<ElectCity>();
+                    if (electRepo.Get(t => t.Name.Equals(town.Name, StringComparison.OrdinalIgnoreCase)) == null)
+                    {
+                        electRepo.Add(new ElectCity() { Name = town.Name });
+                        return this.Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return this.Request.CreateResponse(HttpStatusCode.Accepted);
                 }
-                return this.Request.CreateResponse(HttpStatusCode.Accepted);
-            }
-            return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+            });
         }
 
         // PUT: api/ElectCities/5
         [HttpPut]
-        public HttpResponseMessage EditItem(int id, [FromBody]ElectCity town)
+        public async Task<HttpResponseMessage> EditItem(int id, [FromBody]ElectCity town)
         {
-            if (!String.IsNullOrEmpty(town.Name))
+            return await Task.Run(() =>
             {
-                var city = _unit.Repository<ElectCity>().Get(t => t.Id == id);
-                if (city != null)
+                if (!String.IsNullOrEmpty(town.Name))
                 {
-                    city.Name = town.Name;
-                    _unit.Repository<ElectCity>().Edit(city);
-                    return this.Request.CreateResponse(HttpStatusCode.OK);
+                    var city = _unit.Repository<ElectCity>().Get(t => t.Id == id);
+                    if (city != null)
+                    {
+                        city.Name = town.Name;
+                        _unit.Repository<ElectCity>().Edit(city);
+                        return this.Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    return this.Request.CreateResponse(HttpStatusCode.NotFound);
                 }
-                return this.Request.CreateResponse(HttpStatusCode.NotFound);
-            }
-            return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest);
+            });
         }
 
 
         // DELETE: api/ElectCities/5
         [HttpDelete]
-        public HttpResponseMessage RemoveItem(int id)
+        public async Task<HttpResponseMessage> RemoveItem(int id)
         {
-            var city = _unit.Repository<ElectCity>().Get(t => t.Id == id);
-
-            if (city != null)
+            return await Task.Run(() =>
             {
-                _unit.Repository<ElectCity>().Remove(city);
-                return this.Request.CreateResponse(HttpStatusCode.OK);
-            }
-            return this.Request.CreateResponse(HttpStatusCode.NotFound);
+                var city = _unit.Repository<ElectCity>().Get(t => t.Id == id);
+
+                if (city != null)
+                {
+                    _unit.Repository<ElectCity>().Remove(city);
+                    return this.Request.CreateResponse(HttpStatusCode.OK);
+                }
+                return this.Request.CreateResponse(HttpStatusCode.NotFound);
+            });
         }
     }
 }
